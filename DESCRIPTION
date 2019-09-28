@@ -1,0 +1,13 @@
+Package: phybase
+Type: Package
+Title: Basic functions for phylogenetic analysis
+Version: 2.0
+Date: 2017-9-25
+Author: Liang Liu
+Depends: R (>= 3.2.0), ape (>= 3.2), Matrix
+Maintainer: Liang Liu <lliu@uga.edu>
+Description: This package provides functions to read, write, manipulate, estimate, and summarize phylogenetic trees including species trees which contain not only the topology and branch lengths but also population sizes. The input/output functions can read tree files in which trees are presented in parenthetic format. The trees are read in as a string and then transformed to a matrix which describes the relationship of nodes and branch lengths. The nodes matrix provides an easy access for developers to further manipulate the tree, while the tree string provides interface with other phylogenetic R packages such as "ape". The input/output functions can also be used to change the format of tree files between NEXUS and PHYLIP. Some basic functions have already been established in the package for manipulating trees such as deleting and swapping nodes, rooting and unrooting trees, changing the root of the tree. The package also includes functions such as "consensus", "coaltime, "popsize" for summarizing phylogenetic trees, calculating the coalescence time, population size, and tree distance. The function maxtree is built in the package to esimtate the species tree from multiple gene trees. 
+License: GPL (>= 2)
+LazyData: true
+Packaged: 2018-10-05 21:10:26 UTC; lliu
+NeedsCompilation: yes

@@ -1,0 +1,11 @@
+citHeader("To cite Phybase in a publication use:")
+
+citEntry(entry="Article",
+	title = "Phybase: an {R} package for species tree analysis",
+     author = personList(as.person("L. Liu"),as.person("L. Yu")),
+	journal = "Bioinformatics",
+  	year = "2010",
+	volume = "26",
+	pages = "962-963",
+
+      textVersion = "Liu L. and Yu L. 2010. Phybase: an R package for species tree analysis. Bioinformatics 26: 962-963.")

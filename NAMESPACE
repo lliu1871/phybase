@@ -1,0 +1,8 @@
+useDynLib(phybase, .registration = TRUE)
+exportPattern("^[^\\.]")
+
+importFrom("graphics", "abline", "plot")
+importFrom("stats", "rexp", "rgamma", "runif", "sd", "chisq.test","density")
+importFrom("utils", "write.table")
+importFrom("ape",plot.phylo,read.tree,write.tree,nj,root,read.dna,write.dna, dist.topo, drop.tip,"unroot")
+importFrom("Matrix",expm,Matrix)
