@@ -3,7 +3,6 @@ PHYBASE provides functions to read, write, manipulate, simulate, estimate, and s
 
 
 1. Read and write sequences in Nexus and Phylip format. 
-
 2. Read and write trees in Nexus and Phylip format. 
 
 3. Summarize trees. 
