@@ -1,5 +1,5 @@
 # phybase
-PHYBASE provides functions to read, write, manipulate, simulate, estimate, and summarize phylogenetic trees (gene trees and species trees). 
+Phybase provides functions to read, write, manipulate, simulate, estimate, and summarize phylogenetic trees (gene trees and species trees). 
 
 1. Read and write sequences in Nexus and Phylip format. 
 2. Read and write trees in Nexus and Phylip format. 
