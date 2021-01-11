@@ -10,7 +10,7 @@ function(path_raxml, inputfolder, nbootstrap)
     reftreefiles = paste(files,".reftree",sep="")
     seqfiles = paste(inputfolder,"/",files,sep="")
     
-    file.concatData(inputfolder,allseqfile)
+    file.concatData(seqfiles,allseqfile)
     command = paste(path_raxml," -s",allseqfile," -mGTRGAMMA -n",allseqfile," -p",floor(runif(1)*38276153+3827262),sep="")
     try(system(command))
     
@@ -69,7 +69,8 @@ function(path_raxml, inputfolder, nbootstrap)
             write.dna.seq(allseq[index,s], allname[index], paste("./",i,"/",files[j],sep=""),format="phylip")
         }
         setwd(paste("./",i,sep=""))
-        file.concatData("./", allseqfile)
+	x=list.files()
+        file.concatData(x, allseqfile)
         command = paste(path_raxml," -s",allseqfile," -mGTRGAMMA -n",allseqfile," -p",floor(runif(1)*38276153+3827262),sep="")
         try(system(command))
         alltree1 = read.tree(paste("RAxML_bestTree.",allseqfile,sep=""))
