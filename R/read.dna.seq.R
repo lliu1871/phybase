@@ -79,6 +79,28 @@ function(file="", format="nexus")
 		gene <- "NA"
 		
 	}
+	if (tolower(format) == "fasta") {
+		index = grep(">",X)
+		taxaname = gsub(">","",X[index])
+		
+		index2 = matrix(0,nrow=length(index),ncol=2)
+		index2[,1] = index[1:length(index)]+1
+		index2[,2] = c(index[2:length(index)],length(X)+1)-1
+		
+		seq <- rep("",length(taxaname))
+		for(i in 1:dim(index2)[1]){
+			seq[i] = paste(X[index2[i,1]:index2[i,2]],collapse="",sep="")
+		}
+	
+		ntax <- length(taxaname)
+		ncha <- nchar(seq[1])
+		sequence <- matrix("", nrow = ntax, ncol = ncha)
+		for (i in 1:ntax) {
+			print(i)
+			sequence[i,] <- unlist(strsplit(seq[i],split=""))
+        	}
+        	gene <- "NA"
+    	}
 	taxaname = gsub("\t","",taxaname)
 	taxaname = gsub(" ","",taxaname)
 	sequence = gsub("\t","",sequence)
