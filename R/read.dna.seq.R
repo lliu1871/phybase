@@ -96,7 +96,6 @@ function(file="", format="nexus")
 		ncha <- nchar(seq[1])
 		sequence <- matrix("", nrow = ntax, ncol = ncha)
 		for (i in 1:ntax) {
-			print(i)
 			sequence[i,] <- unlist(strsplit(seq[i],split=""))
         	}
         	gene <- "NA"
