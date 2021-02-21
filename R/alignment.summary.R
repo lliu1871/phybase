@@ -1,7 +1,7 @@
 'alignment.summary'<-
-function(seqfile)
+function(seqfile,format="phylip")
 {
-	data = read.dna.seq(seqfile,format="phylip")
+	data = read.dna.seq(seqfile,format=format)
 	seq = tolower(data$seq)
 
 	nspecies=length(data$name)
