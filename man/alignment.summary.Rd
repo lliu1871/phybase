@@ -6,11 +6,13 @@
   This function calculates the summary statistics of the alignments across genes.
 }
 \usage{
-alignment.summary(seqfile)
+alignment.summary(seqfile,format="phylip")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{seqfile}{the input sequence files; one gene per file}
+  \item{format}{format=phylip, fasta,nexus}
+  
 }
 
 \author{ Liang Liu }
