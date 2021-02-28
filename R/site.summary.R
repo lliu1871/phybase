@@ -1,16 +1,31 @@
 'site.summary' <- 
-function(sequence)
-{
-	seqsummary<-rep(-1, 11)
-	names(seqsummary) <- c("segregating_site", "informative_site", "ambiguous_site", "seqlength", "ntaxa", "gc_content", "gc_3pos","basefreq_a", "basefreq_c", "basefreq_g", "basefreq_t")
-	seqsummary[1]<-.segsite(sequence)
-	seqsummary[2]<-.informsite(sequence)
-	seqsummary[3]<-.ambisite(sequence)
-	seqsummary[4]<-.seqlength(sequence)
-	seqsummary[5]<-dim(sequence)[1]
-	seqsummary[6]<-.gc.content(sequence)
-	seqsummary[7]<-.gc_3pos(sequence)
-	seqsummary[8:11]<-.basefreq(sequence)
+function(sequence, is.cds)
+{	
+	if(is.cds){
+		seqsummary<-rep(-1, 13)
+		names(seqsummary) <- c("segregating_site", "informative_site", "ambiguous_site", "seqlength", "ntaxa", "gc_12pos", "gc_12_var","gc_3pos","gc_3_var","basefreq_a", "basefreq_c", "basefreq_g", "basefreq_t")
+		seqsummary[1]<-.segsite(sequence)
+		seqsummary[2]<-.informsite(sequence)
+		seqsummary[3]<-.ambisite(sequence)
+		seqsummary[4]<-.seqlength(sequence)
+		seqsummary[5]<-dim(sequence)[1]
+		seqsummary[6]<-.gc_12pos(sequence)
+		seqsummary[7]<-.gc_12pos.variance(sequence)
+		seqsummary[8]<-.gc_3pos(sequence)
+		seqsummary[9]<-.gc_3pos.variance(sequence)
+		seqsummary[10:13]<-.basefreq(sequence)
+	}else{
+		seqsummary<-rep(-1, 11)
+		names(seqsummary) <- c("segregating_site", "informative_site", "ambiguous_site", "seqlength", "ntaxa", "gc", "gc_var","basefreq_a", "basefreq_c", "basefreq_g", "basefreq_t")
+		seqsummary[1]<-.segsite(sequence)
+		seqsummary[2]<-.informsite(sequence)
+		seqsummary[3]<-.ambisite(sequence)
+		seqsummary[4]<-.seqlength(sequence)
+		seqsummary[5]<-dim(sequence)[1]
+		seqsummary[6]<-.gc(sequence)
+		seqsummary[7]<-.gc.variance(sequence)
+		seqsummary[8:11]<-.basefreq(sequence)
+	}
 	seqsummary
 }
 
@@ -54,50 +69,78 @@ function(sequence)
 
 .basefreq <- function(sequence)
 {
-	freq <- 1:4
-	freq[1] <- sum(tolower(sequence) == "a")
-	freq[2] <- sum(tolower(sequence) == "c")
-	freq[3] <- sum(tolower(sequence) == "g")
-	freq[4] <- sum(tolower(sequence) == "t")
+	seq = tolower(sequence)
+	freq <- c(sum(seq == "a"),sum(seq == "c"),sum(seq == "g"),sum(seq == "t"))
 	return(freq/sum(freq))
 }
 
-.gc.content <- function(sequence)
+.gc <- function(sequence)
 {
-	freq <- 1:4
-	freq[1] <- sum(tolower(sequence) == "a")
-	freq[2] <- sum(tolower(sequence) == "c")
-	freq[3] <- sum(tolower(sequence) == "g")
-	freq[4] <- sum(tolower(sequence) == "t")
+	seq = tolower(sequence)
+	freq <- c(sum(seq == "a"),sum(seq == "c"),sum(seq == "g"),sum(seq == "t"))
 	return((freq[2]+freq[3])/sum(freq))
+}
+
+.gc.variance <- function(sequence)
+{
+	seq = tolower(sequence)
+	result = apply(seq,1,function(x) (sum(x=="c")+sum(x=="g"))/(sum(x=="c")+sum(x=="g")+sum(x=="a")+sum(x=="t")))
+	return(var(result))
 }
 
 .gc_3pos <- function(sequence)
 {
+	if((dim(sequence)[2] %% 3)>0) stop("This is not a gene!")
+	seq = tolower(sequence)
+	index <- seq(3,dim(seq)[2],by=3)
+	seq <- seq[,index]
+	freq <- c(sum(seq == "a"),sum(seq == "c"),sum(seq == "g"),sum(seq == "t"))
+	return((freq[2]+freq[3])/sum(freq))
+}
+
+.gc_3pos.variance <- function(sequence)
+{
 	if((dim(sequence)[2] %% 3)>0) return(-1)
 	index <- seq(3,dim(sequence)[2],by=3)
 	sequence1 <- sequence[,index]
-	freq <- 1:4
-	freq[1] <- sum(tolower(sequence1) == "a")
-	freq[2] <- sum(tolower(sequence1) == "c")
-	freq[3] <- sum(tolower(sequence1) == "g")
-	freq[4] <- sum(tolower(sequence1) == "t")
+	seq = tolower(sequence1)
+	result = apply(seq,1,function(x) (sum(x=="c")+sum(x=="g"))/(sum(x=="c")+sum(x=="g")+sum(x=="a")+sum(x=="t")))
+	return(var(result))
+}
+
+.gc_12pos <- function(sequence)
+{
+	if((dim(sequence)[2] %% 3)>0) stop("This is not a gene!")
+	seq = tolower(sequence)
+	index <- seq(3,dim(seq)[2],by=3)
+	seq <- seq[,-index]
+	freq <- c(sum(seq == "a"),sum(seq == "c"),sum(seq == "g"),sum(seq == "t"))
 	return((freq[2]+freq[3])/sum(freq))
+}
+
+.gc_12pos.variance <- function(sequence)
+{
+	if((dim(sequence)[2] %% 3)>0) return(-1)
+	index <- seq(3,dim(sequence)[2],by=3)
+	sequence1 <- sequence[,-index]
+	seq = tolower(sequence1)
+	result = apply(seq,1,function(x) (sum(x=="c")+sum(x=="g"))/(sum(x=="c")+sum(x=="g")+sum(x=="a")+sum(x=="t")))
+	return(var(result))
 }
 
 .informsite <- function(sequence)
 {
-	sum(apply(sequence,2, .is.informsite))
+	sum(apply(sequence,2,.is.informsite))
 }
 
 .segsite <- function(sequence)
 {
-	sum(apply(sequence,2, .is.segsite))
+	sum(apply(sequence,2,.is.segsite))
 }
 
 .ambisite <- function(sequence)
 {
-	sum(apply(sequence,2, .is.ambisite))
+	sum(apply(sequence,2,.is.ambisite))
 }
 
 .seqlength <- function(sequence)
@@ -115,4 +158,3 @@ function(sequence)
 	}
 	(dim(sequence)[1] - missing)
 }
-
