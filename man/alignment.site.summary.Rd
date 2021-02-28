@@ -6,12 +6,13 @@
   This function calculates the number of segregating sites, informative sites, ambiguous sites (i.e., sites containing non-nucleotide characters) in the alignment.
 }
 \usage{
-alignment.site.summary(seqfile,format="phylip")
+alignment.site.summary(seqfile,format="phylip",is.cds=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{seqfile}{the input sequence files; one gene per file}
   \item{format}{format = phylip, fasta, nexus}
+  \item{is.cds}{is it cds?}
 }
 
 \author{ Liang Liu }
