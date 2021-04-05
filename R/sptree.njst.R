@@ -1,4 +1,4 @@
-'sptree.njst'<-function (genetrees, taxaname, spname, species.structure)
+'sptree.njst'<-function (genetrees, spname, taxaname, species.structure)
 {
     ntree <- length(genetrees)
     ntaxa <- length(taxaname)
