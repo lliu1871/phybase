@@ -5,13 +5,13 @@
 This function can estimate species trees from a set of unrooted gene trees 
 }
 \usage{
-sptree.njst(genetrees, taxaname, spname, species.structure)
+sptree.njst(genetrees, spname, taxaname, species.structure)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{genetrees}{ a set of unrooted gene trees}
-  \item{taxaname}{ names of taxa}
   \item{spname}{names of species}
+  \item{taxaname}{ names of taxa}
   \item{species.structure}{the taxaname-spname table}
 }
 \author{ Liang Liu }
