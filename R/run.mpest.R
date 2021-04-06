@@ -1,10 +1,16 @@
-'run.mpest'<-function(path_mpest="mpest", genetreefile, species, sptree="", ntree)
+'run.mpest'<-function(path_mpest="mpest", genetreefile, species, species_allele_table="", sptree="", ntree)
 {
 	nspecies = length(species)
+	if(species_allele_table==""){
+		sptable=paste(species, 1, species)
+	}else{
+		sptable = species_allele_table
+	}
+	
 	if(nchar(sptree) == 0){
-		x = c(genetreefile, "0", "-1", "1", paste(ntree, nspecies), paste(species, 1, species), "0", sptree)
+		x = c(genetreefile, "0", "-1", "1", paste(ntree, nspecies), sptable, "0", sptree)
     	}else{
-    		x = c(genetreefile, "0", "-1", "1", paste(ntree, nspecies), paste(species, 1, species), "2", sptree)
+    		x = c(genetreefile, "0", "-1", "1", paste(ntree, nspecies), sptable, "2", sptree)
     	}
 	controlfile = paste("control_",genetreefile,sep="")
 	write(x,controlfile)
