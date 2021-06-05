@@ -16,8 +16,8 @@ function(tree1,tree2, method="RF", normalize=TRUE)
     y<-drop.tip(tree2,tip=delname)
     
     if(length(x$tip.label)<3)   distance <- -1
-    if (method=="RF")    distance <- dist.topo(x,y)
-    if (method=="SC")    distance <- dist.topo(x,y,method="score")
+    if (method=="RF")    distance <- dist.topo(unroot(x),unroot(y))
+    if (method=="SC")    distance <- dist.topo(unroot(x),unroot(y),method="score")
     if (normalize)    distance <- distance/((length(allspeciesname)-length(delname)-3)*2)
     
     z=list(distance=distance, numCommonSp = length(allspeciesname)-length(delname))
