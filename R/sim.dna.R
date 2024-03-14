@@ -7,15 +7,15 @@ function(nodematrix,seqlength,model,kappa=2,rate=c(1,1,1,1,1,1),frequency=c(1/4,
 	# 	model = 2 :  H2P model, alpha and beta (two parameters).
 	# 	model = 3 : HKY model, alpha, beta, frequencies (five parameters)
 	# 	model = 4 : GTR model, six rates, frequencies (nine parameters)
-	#
+	#       model = 5 : Methylation 3x3 model
 	#	rate[1] = A <-> C rate
-	#     rate[2] = A <-> G rate
-	#     rate[3] = A <-> T rate
-	#     rate[4] = C <-> G rate
-	#     rate[5] = C <-> T rate
-	#     rate[6] = G <-> T rate
+	#       rate[2] = A <-> G rate
+	#       rate[3] = A <-> T rate
+	#       rate[4] = C <-> G rate
+	#       rate[5] = C <-> T rate
+	#       rate[6] = G <-> T rate
 	#
-	#     code for constructing rate matrix is copied from Mrbayes (Huelsenbeck and Ronquist) 
+	#       code for constructing rate matrix is copied from Mrbayes (Huelsenbeck and Ronquist) 
 	############################################################################################
 
  	
@@ -31,9 +31,15 @@ function(nodematrix,seqlength,model,kappa=2,rate=c(1,1,1,1,1,1),frequency=c(1/4,
 		rateValues<-rep(1,6)
 		rateValues[c(2,5)]<-kappa
 		bs<-frequency
-	}else{
+	}else if (model == 4){
 		rateValues <- rate
 		bs <- frequency
+	}else if (model == 5){
+		rateValues <- rate
+		rateValues[4:6] <- 0
+		bs <- frequency
+	}else{
+		return("Please select a model")
 	}
 
 	a<-matrix(0,4,4)
