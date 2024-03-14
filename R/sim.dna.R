@@ -36,7 +36,7 @@ function(nodematrix,seqlength,model,kappa=2,rate=c(1,1,1,1,1,1),frequency=c(1/4,
 		bs <- frequency
 	}else if (model == 5){
 		rateValues <- rate
-		rateValues[4:6] <- 0
+		rateValues[c(3,5,6)] <- 0
 		bs <- frequency
 	}else{
 		return("Please select a model")
