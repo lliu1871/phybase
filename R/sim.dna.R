@@ -1,5 +1,5 @@
 `sim.dna` <-
-function(nodematrix,seqlength,model,kappa=2,rate=c(1,1,1,1,1,1),frequency=c(1/4,1/4,1/4,1/4))
+function(treenode,seqlength,model,kappa=2,rate=c(1,1,1,1,1,1),frequency=c(1/4,1/4,1/4,1/4))
 {
 
 	############################################################################################
@@ -17,7 +17,7 @@ function(nodematrix,seqlength,model,kappa=2,rate=c(1,1,1,1,1,1),frequency=c(1/4,
 	#
 	#       code for constructing rate matrix is copied from Mrbayes (Huelsenbeck and Ronquist) 
 	############################################################################################
-
+	nodematrix = treenode$nodes
  	
 	if(model==1){
 		rateValues<-rep(1,6)
@@ -34,12 +34,8 @@ function(nodematrix,seqlength,model,kappa=2,rate=c(1,1,1,1,1,1),frequency=c(1/4,
 	}else if (model == 4){
 		rateValues <- rate
 		bs <- frequency
-	}else if (model == 5){
-		rateValues <- rate
-		rateValues[c(3,5,6)] <- 0
-		bs <- frequency
 	}else{
-		return("Please select a model")
+		return("Please select a valid model 1-4")
 	}
 
 	a<-matrix(0,4,4)
@@ -103,7 +99,9 @@ function(nodematrix,seqlength,model,kappa=2,rate=c(1,1,1,1,1,1),frequency=c(1/4,
 			nsonnodes<-0
 		}
     	}
-    	return(dna[1:nsequence,])	
+	seq = dna[1:nsequence,]
+	rownames(seq) = treenode$names
+    	return(seq)	
 }
 
 .rootoftree <- function (nodematrix)
