@@ -136,7 +136,7 @@ function(sptree, spname,seq,numgenetree,method="dirichlet",alpha=5.0)
 			}
 		}
 	}
-	genetree[,4]<-round(genetree[,4],8)
+	genetree[,4]<-round(genetree[,4],10)
 	return (genetree)
 
 }
