@@ -26,11 +26,11 @@ function(rootnode,nodematrix,nspecies,seq,name)
 			##update groups
     			newname<-paste("(",treestr[b[1]],sep="")
     			newname<-paste(newname,":",sep="")
-    			newname<-paste(newname,round(height-brlens[b[1]],8),sep="")
+    			newname<-paste(newname,round(height-brlens[b[1]],10),sep="")
     			newname<-paste(newname,",",sep="")   
     			newname<-paste(newname,treestr[b[2]],sep="")
     			newname<-paste(newname,":",sep="")
-    			newname<-paste(newname,round(height-brlens[b[2]],8),sep="")
+    			newname<-paste(newname,round(height-brlens[b[2]],10),sep="")
     			newname<-paste(newname,")",sep="")
     			treestr[b[1]]<-newname
 			brlens[b[1]]<-height
