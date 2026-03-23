@@ -14,7 +14,8 @@ Phybase provides functions to read, write, manipulate, simulate, estimate, and s
 
 ## Installation
 ```{code}
-install_github("lliu1871/phybase")
+#install.packages("pak")
+pak::pak("lliu1871/phybase")
 ```
 
 ## Citation 
